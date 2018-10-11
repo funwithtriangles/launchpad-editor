@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
+import PropTypes from 'prop-types'
 import Cell from './Cell'
 
 const gridSize = 8
-const cellWidth = 100/gridSize
+const cellWidth = 100 / gridSize
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,7 +16,7 @@ const Item = styled.div`
   width: ${cellWidth}%;
 `
 
-const Grid = ({cells}) => (
+const Grid = ({ cells }) => (
   <Wrapper>
     {cells.map((cell, index) =>
       <Item key={index}>
@@ -24,5 +25,9 @@ const Grid = ({cells}) => (
     )}
   </Wrapper>
 )
+
+Grid.propTypes = {
+  cells: PropTypes.array
+}
 
 export default Grid
