@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Cell from './Cell'
 
-const gridSize = 8
+const gridSize = 9
 const cellWidth = 100 / gridSize
 
 const Wrapper = styled.div`
