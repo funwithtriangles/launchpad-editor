@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "main": "main_process.js",
   "scripts": {
-    "bundle": "webpack --mode development",
+    "bundle": "webpack",
     "serve": "electron .",
-    "start": "npm-run-all --parallel bundle serve"
+    "start": "cross-env NODE_ENV=development npm-run-all --parallel bundle serve",
+    "dist": "cross-env NODE_ENV=production webpack --config webpack.config.prod.js"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.4",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.28.10",
     "electron": "^1.8.2",
     "electron-reload": "^1.2.2",
@@ -26,9 +28,12 @@
     "file-loader": "^1.1.10",
     "npm-run-all": "^4.1.2",
     "webpack": "^4.1.1",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "webpack-electron-packager": "^1.0.0",
+    "webpack-merge": "^4.1.4"
   },
   "dependencies": {
+    "electron-packager": "^12.2.0",
     "jsonfile": "^5.0.0",
     "prop-types": "^15.6.2",
     "react": "^16.2.0",
