@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Grid from './components/Grid'
-import controlLight from './utils/controlLight.js'
+import { controlLight, clear } from './utils/launchpadControls.js'
 
 const colors = [
   'black',
@@ -69,6 +69,10 @@ export default class App extends Component {
       })
 
       this.device = devices['Launchpad Mini']
+
+      if (this.device) {
+        clear(this.midiAccess, this.device.id)
+      }
     }
 
     navigator.requestMIDIAccess().then((midiAccess) => {
