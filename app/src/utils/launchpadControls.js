@@ -20,3 +20,9 @@ export const clear = (midiAccess, portID) => {
   var output = midiAccess.outputs.get(portID)
   output.send([176, 0, 0])
 }
+
+export const sendAll = (midiAccess, portID, cells) => {
+  for (let i = 0; i < 72; i++) {
+    controlLight(midiAccess, portID, i, cells[i].color)
+  }
+}

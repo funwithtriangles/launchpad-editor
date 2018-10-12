@@ -1,17 +1,20 @@
-// Basic init
-const electron = require('electron')
-const {app, BrowserWindow} = electron
+const { createMainWindow } = require('./mainWindow')
+const menu = require('./menu')
 
-// Let electron reloads by itself when webpack watches changes in ./app/
-require('electron-reload')(__dirname)
+const electron = require('electron')
+const { app } = electron
 
 // To avoid being garbage collected
 let mainWindow
 
 app.on('ready', () => {
-
-    mainWindow = new BrowserWindow({width: 800, height: 600})
-
-    mainWindow.loadURL(`file://${__dirname}/app/index.html`)
-
+  menu.updateMenu()
+  createMainWindow()
 })
+
+module.exports = {
+  mainWindow
+}
+
+// Let electron reloads by itself when webpack watches changes in ./app/
+require('electron-reload')(__dirname)

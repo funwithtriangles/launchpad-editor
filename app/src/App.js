@@ -1,7 +1,11 @@
+import { ipcRenderer } from 'electron'
+
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import Grid from './components/Grid'
-import { controlLight, clear } from './utils/launchpadControls.js'
+import { controlLight, clear, sendAll } from './utils/launchpadControls.js'
+
+import { projectSave, projectSaveAs, projectLoad } from './utils/project'
 
 const colors = [
   'black',
@@ -80,6 +84,34 @@ export default class App extends Component {
 
       midiAccess.onstatechange = () => {
         processDevices(midiAccess)
+      }
+    })
+
+    ipcRenderer.on('app-menu-click', (e, id, ...args) => {
+      switch (id) {
+        case 'project-save':
+          projectSave(this.state.cells)
+          break
+        case 'project-save-as':
+          projectSaveAs(this.state.cells)
+          break
+        case 'project-load':
+          projectLoad().then(data => {
+            const cells = []
+            data.forEach((colorIndex, i) => {
+              cells.push({
+                type: i % 9 === 8 ? 'circle' : 'square',
+                color: colors[colorIndex],
+                colorIndex,
+                onClick: () => toggleColor(i)
+              })
+            })
+
+            this.setState({ cells })
+            sendAll(this.midiAccess, this.device.id, cells)
+          })
+
+          break
       }
     })
   }
